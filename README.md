@@ -6,3 +6,6 @@ Ich werde dabei als Kreativ-Arbeit ein Spiel mit der Hilfe von Game-Design entwi
 
 
 Das Projeck wird Unity programmiert.
+
+
+[Wiki](https://github.com/JavaFrame/Faced-Paced-Action-Game/wiki)
