@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Controls : MonoBehaviour
 {
+    private static Controls _controls;
+
+    public static Controls StaticControls
+    {
+        get { return _controls;}
+    }
+
     public ControlProfile CurrentControlProfile = new ControlProfile("Hy");
     public ControlProfile KeyboardControlProfile = new ControlProfile("Keyboard Profile", InputType.Keyboard);
     public ControlProfile ControllerControlProfile = new ControlProfile("Controller Profile", InputType.Controller, KeyCode.JoystickButton4, KeyCode.JoystickButton5, KeyCode.JoystickButton0,
-        KeyCode.JoystickButton6, KeyCode.JoystickButton7, "cLeftStickX", "cLeftStickY");
+        KeyCode.JoystickButton6, KeyCode.JoystickButton7);
 
     public InputType CurrentInput
     {
@@ -26,22 +33,34 @@ public class Controls : MonoBehaviour
         get { return _verticalAxis; }
     }
 
+    public Vector2 LastDirection = Vector2.up;
+
     private bool _shootButton1;
     public bool ShootButton1
     {
         get { return _shootButton1; }
+        set { _shootButton1 = value; }
     }
 
     private bool _shootButton2;
     public bool ShootButton2
     {
         get { return _shootButton2; }
+        set { _shootButton2 = value; }
     }
 
     private bool _teleportButton;
     public bool TeleportButton
     {
-        get { return _teleportButton; }
+        get
+        {
+            if (_teleportButton)
+            {
+                _teleportButton = false;
+                return true;
+            }
+            return false;
+        }
     }
 
     private bool _inventoryButton;
@@ -65,7 +84,7 @@ public class Controls : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        _controls = this;
     }
 
     // Update is called once per frame
@@ -75,7 +94,9 @@ public class Controls : MonoBehaviour
         switch (CurrentInput)
         {
             case InputType.Keyboard:
-			    if(Input.GetKey(CurrentControlProfile.Shoot1))
+            case InputType.Controller:
+
+                if(Input.GetKey(CurrentControlProfile.Shoot1))
 			    {
 			        _shootButton1 = true;
 			    } else if (Input.GetKeyUp(CurrentControlProfile.Shoot1))
@@ -119,8 +140,16 @@ public class Controls : MonoBehaviour
                     _menuButton = false;
                 }
 
-                _horizontalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveHorizontal);
+                _horizontalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveHorizontal);    
                 _verticalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveVertical);
+
+                if (HorizontalAxis != 0 | VerticalAxis != 0)
+                {
+                    LastDirection.x = _horizontalAxis;
+                    LastDirection.y = _verticalAxis;
+
+                    LastDirection = LastDirection.normalized;
+                }
 
                 break;
             case InputType.Touche:
@@ -128,83 +157,34 @@ public class Controls : MonoBehaviour
         }
     }
 
+    private void resetInput()
+    {
+        _horizontalAxis = 0;
+        _verticalAxis = 0;
+        _teleportButton = false;
+        _shootButton1 = false;
+        _shootButton2 = false;
+    }
+
     private void CheckInputType()
     {
         if (CurrentControlProfile.IsSelected()) return;
+
         if (KeyboardControlProfile.IsSelected())
         {
             CurrentControlProfile = KeyboardControlProfile;
-        } else if (ControllerControlProfile.IsSelected())
+            resetInput();
+        }
+        else if (ControllerControlProfile.IsSelected())
         {
             CurrentControlProfile = ControllerControlProfile;
+            resetInput();
         }
         else
         {
             return;
         }
         Debug.Log("Change ControlProfile to " + CurrentControlProfile.name);
-    }
-
-    private bool isKeyboard()
-    {
-        if (Input.GetAxisRaw("MouseX") != 0) return true;
-        if (Input.GetAxisRaw("MouseY") != 0) return true;
-        //if (Input.anyKey) return true;
-        return false;
-    }
-
-    private bool isController()
-    {
-        // joystick buttons
-        if (Input.GetKey(KeyCode.Joystick1Button0) ||
-           Input.GetKey(KeyCode.Joystick1Button1) ||
-           Input.GetKey(KeyCode.Joystick1Button2) ||
-           Input.GetKey(KeyCode.Joystick1Button3) ||
-           Input.GetKey(KeyCode.Joystick1Button4) ||
-           Input.GetKey(KeyCode.Joystick1Button5) ||
-           Input.GetKey(KeyCode.Joystick1Button6) ||
-           Input.GetKey(KeyCode.Joystick1Button7) ||
-           Input.GetKey(KeyCode.Joystick1Button8) ||
-           Input.GetKey(KeyCode.Joystick1Button9) ||
-           Input.GetKey(KeyCode.Joystick1Button10) ||
-           Input.GetKey(KeyCode.Joystick1Button11) ||
-           Input.GetKey(KeyCode.Joystick1Button12) ||
-           Input.GetKey(KeyCode.Joystick1Button13) ||
-           Input.GetKey(KeyCode.Joystick1Button14) ||
-           Input.GetKey(KeyCode.Joystick1Button15) ||
-           Input.GetKey(KeyCode.Joystick1Button16) ||
-           Input.GetKey(KeyCode.Joystick1Button17) ||
-           Input.GetKey(KeyCode.Joystick1Button18) ||
-           Input.GetKey(KeyCode.Joystick1Button19))
-        {
-            return true;
-        }
-
-        // joystick axis
-        /*if (Input.GetAxis("cLeftStickX") != 0.0f ||
-           Input.GetAxis("cLeftStickY") != 0.0f ||
-           Input.GetAxis("cTriggers") != 0.0f ||
-           Input.GetAxis("cRightStickX") != 0.0f ||
-           Input.GetAxis("cRightStickY") != 0.0f)
-        {
-            return true;
-        }*/
-        return false;
-    }
-
-    private bool isTouche()
-    {
-        return false;
-    }
-
-    float GetHorizontalAxis()
-    {
-        return 0;
-    }
-
-    float GetVerticalAxis()
-    {
-        return 0;
     }
 
     public enum InputType
@@ -214,7 +194,13 @@ public class Controls : MonoBehaviour
         Touche
     }
 
-
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
 
 }
 
@@ -265,14 +251,14 @@ public class ControlProfile
         {
             return true;
         }
-        if (Input.GetAxisRaw(MoveHorizontal) != 0)
+        /*if (Input.GetAxisRaw(MoveHorizontal) != 0)
         {
             return true;
         }
         if (Input.GetAxisRaw(MoveVertical) != 0)
         {
             return true;
-        }
+        }*/
         return false;
     }
 }

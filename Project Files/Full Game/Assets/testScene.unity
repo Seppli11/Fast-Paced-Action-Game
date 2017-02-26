@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 65645847}
   - component: {fileID: 65645846}
   - component: {fileID: 65645845}
+  - component: {fileID: 65645852}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190915ea40ce3754888779dfe7ea5135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastDirection: {x: 0, y: 1}
 --- !u!114 &65645846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1edaba9096b61a45b07c6af077c58b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controls: {fileID: 65645845}
   Speed: 20
+  TeleportSpeed: 5
+  NonTeleportTime: 2
 --- !u!23 &65645847
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -197,6 +200,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &65645852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 65645844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc500384177f112439210bddaee1e420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &160693702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 160693704}
+  - component: {fileID: 160693703}
+  m_Layer: 0
+  m_Name: ControlManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &160693703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 160693702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190915ea40ce3754888779dfe7ea5135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastDirection: {x: 0, y: 1}
+--- !u!4 &160693704
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 160693702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128871298
 GameObject:
