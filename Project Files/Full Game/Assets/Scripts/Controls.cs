@@ -84,6 +84,11 @@ public class Controls : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
+    }
+
+    void Awake()
+    {
         _controls = this;
     }
 
