@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8a183001f22eca6429bcbe749b0099c5
-timeCreated: 1488140432
+timeCreated: 1488180266
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -80,12 +80,12 @@ TextureImporter:
     overridden: 0
   - buildTarget: Standalone
     maxTextureSize: 2048
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
   - buildTarget: iPhone
     maxTextureSize: 2048
     textureFormat: -1
@@ -117,12 +117,12 @@ TextureImporter:
       name: Main Character_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -130,12 +130,12 @@ TextureImporter:
       name: Main Character_1
       rect:
         serializedVersion: 2
-        x: 19
+        x: 16
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -143,12 +143,12 @@ TextureImporter:
       name: Main Character_2
       rect:
         serializedVersion: 2
-        x: 35
+        x: 32
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -156,12 +156,12 @@ TextureImporter:
       name: Main Character_3
       rect:
         serializedVersion: 2
-        x: 51
+        x: 48
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -169,12 +169,12 @@ TextureImporter:
       name: Main Character_4
       rect:
         serializedVersion: 2
-        x: 67
+        x: 64
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -182,12 +182,12 @@ TextureImporter:
       name: Main Character_5
       rect:
         serializedVersion: 2
-        x: 82
-        y: 1
-        width: 13
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -195,12 +195,12 @@ TextureImporter:
       name: Main Character_6
       rect:
         serializedVersion: 2
-        x: 99
+        x: 96
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -208,12 +208,12 @@ TextureImporter:
       name: Main Character_7
       rect:
         serializedVersion: 2
-        x: 115
-        y: 1
-        width: 10
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -221,12 +221,12 @@ TextureImporter:
       name: Main Character_8
       rect:
         serializedVersion: 2
-        x: 130
+        x: 128
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -234,12 +234,12 @@ TextureImporter:
       name: Main Character_9
       rect:
         serializedVersion: 2
-        x: 145
-        y: 1
-        width: 13
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -247,12 +247,12 @@ TextureImporter:
       name: Main Character_10
       rect:
         serializedVersion: 2
-        x: 162
+        x: 160
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -260,12 +260,12 @@ TextureImporter:
       name: Main Character_11
       rect:
         serializedVersion: 2
-        x: 179
-        y: 1
-        width: 10
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 176
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -273,12 +273,12 @@ TextureImporter:
       name: Main Character_12
       rect:
         serializedVersion: 2
-        x: 195
+        x: 192
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -286,12 +286,12 @@ TextureImporter:
       name: Main Character_13
       rect:
         serializedVersion: 2
-        x: 211
-        y: 1
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 208
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -299,12 +299,12 @@ TextureImporter:
       name: Main Character_14
       rect:
         serializedVersion: 2
-        x: 227
+        x: 224
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -312,12 +312,12 @@ TextureImporter:
       name: Main Character_15
       rect:
         serializedVersion: 2
-        x: 243
-        y: 1
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 240
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -325,12 +325,12 @@ TextureImporter:
       name: Main Character_16
       rect:
         serializedVersion: 2
-        x: 259
+        x: 256
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -338,12 +338,12 @@ TextureImporter:
       name: Main Character_17
       rect:
         serializedVersion: 2
-        x: 275
-        y: 1
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 272
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -351,12 +351,12 @@ TextureImporter:
       name: Main Character_18
       rect:
         serializedVersion: 2
-        x: 291
+        x: 288
         y: 0
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -364,12 +364,12 @@ TextureImporter:
       name: Main Character_19
       rect:
         serializedVersion: 2
-        x: 307
-        y: 1
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 304
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
