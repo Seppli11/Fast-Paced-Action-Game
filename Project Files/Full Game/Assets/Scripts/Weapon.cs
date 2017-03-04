@@ -11,7 +11,6 @@ public abstract class Weapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
     public abstract WeaponReturn TryToAttack();

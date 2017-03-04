@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
+    private Animator animator;
+
     private Controls controls;
 
     private Weapon _weapon1;
@@ -30,7 +32,8 @@ public class WeaponScript : MonoBehaviour
     // Use this for initialization
     void Start () {
 		controls = Controls.StaticControls;
-	}
+        animator = GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
