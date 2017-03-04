@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private TimerManager timerManager = new TimerManager();
 
+    private Animator animator;
+
     private Controls controls;
     public float Speed;
     public float TeleportSpeed;
@@ -17,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 	void Start ()
 	{
 	    controls = Controls.StaticControls;
+        animator = GetComponent<Animator>();
 	}
 	
 	void Update () {
@@ -25,18 +28,30 @@ public class PlayerMovement : MonoBehaviour
 	    if (controls.HorizontalAxis > 0)
 	    {
 	        transform.position = new Vector3(transform.position.x + Speed * Time.deltaTime, transform.position.y);
+            animator.SetInteger("x", 1);
+
 	    } else if (controls.HorizontalAxis < 0)
 	    {
             transform.position = new Vector3(transform.position.x - Speed * Time.deltaTime, transform.position.y);
+            animator.SetInteger("x", -1);
+        }
+        else
+        {
+            animator.SetInteger("x", 0);
         }
 
         if (controls.VerticalAxis > 0)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + Speed * Time.deltaTime);
+            animator.SetInteger("y", 1);
         }
         else if (controls.VerticalAxis < 0)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - Speed * Time.deltaTime);
+            animator.SetInteger("y", -1);
+        } else
+        {
+            animator.SetInteger("y", 0);
         }
 
 	    if (controls.TeleportButton)
