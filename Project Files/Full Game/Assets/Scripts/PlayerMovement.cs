@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private TimerManager timerManager = new TimerManager();
+    private TimerManager timerManager;
 
     private Animator animator;
 
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigidbody;
 	void Start ()
 	{
+        timerManager = TimerManager.STimerManager;;
 	    controls = Controls.StaticControls;
         animator = GetComponent<Animator>();
 	    spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,8 +36,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	void FixedUpdate () {
-        timerManager.Update();
-        Vector2 direction = Vector2.zero;
+        /*Vector2 direction = Vector2.zero;
 	    if (controls.HorizontalAxis > 0)
 	    {
 	        //transform.position = new Vector3(transform.position.x + Speed * Time.deltaTime, transform.position.y);
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         } else
         {
         }
-
+        */
 
 	   /* if (controls.ShootButton1)
 	    {
@@ -106,8 +106,8 @@ public class PlayerMovement : MonoBehaviour
 	    }
 	    else
 	    {
-	        direction = direction.normalized;
-	        direction *= Speed * Time.deltaTime;
+	        //direction = direction.normalized;
+	        Vector2 direction = controls.CurrentDirection * Speed * Time.deltaTime;
 	        rigidbody.velocity = new Vector2(Mathf.Lerp(0, direction.x, 0.8f), Mathf.Lerp(0, direction.y, 0.8f));
 
             if (direction == Vector2.zero)

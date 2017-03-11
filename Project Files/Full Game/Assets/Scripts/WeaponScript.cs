@@ -7,6 +7,7 @@ public class WeaponScript : MonoBehaviour
     private TimerManager timerManager = TimerManager.STimerManager;
 
     private Animator animator;
+    public WeaponAnimatorControllerTable WeaponAnimatorControllerTable;
 
     private Controls controls;
 
@@ -33,10 +34,11 @@ public class WeaponScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        Weapon1 = new EmptyWeapon(gameObject);
+        Weapon1 = new Sword(gameObject);
         Weapon2 = new EmptyWeapon(gameObject);
 
 		controls = Controls.StaticControls;
+        Debug.Log(controls);
         animator = GetComponent<Animator>();
     }
 	
@@ -46,14 +48,14 @@ public class WeaponScript : MonoBehaviour
 	    if (controls.ShootButton1)
 	    {
 	        HandlingWeaponReturn(Weapon1.TryToAttack(controls.LastDirection));
-	        animator.runtimeAnimatorController = Weapon1.GetAnimatorController();
+	        animator.runtimeAnimatorController = WeaponAnimatorControllerTable.GetAnimatorController(Weapon1);
             animator.SetTrigger("attack");
             Debug.Log("Weapon 1 shooted");
 	    }
 	    if (controls.ShootButton2)
 	    {
 	        HandlingWeaponReturn(Weapon2.TryToAttack(controls.LastDirection));
-            animator.runtimeAnimatorController = Weapon2.GetAnimatorController();
+            animator.runtimeAnimatorController = WeaponAnimatorControllerTable.GetAnimatorController(Weapon2);
             animator.SetTrigger("attack");
             Debug.Log("Weapon 2 shooted");
         }
@@ -61,7 +63,8 @@ public class WeaponScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        Weapon1.UpdateWeapon();
+        Weapon2.UpdateWeapon();
     }
 
     void HandlingWeaponReturn(WeaponReturn weaponReturn)

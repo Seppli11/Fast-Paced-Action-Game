@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponAnimatorControllerTable : MonoBehaviour
 {
-
+    public RuntimeAnimatorController Default;
     public RuntimeAnimatorController EmptyHand;
     public RuntimeAnimatorController Sword;
 
@@ -17,4 +17,19 @@ public class WeaponAnimatorControllerTable : MonoBehaviour
 	void Update () {
 		
 	}
+
+    public RuntimeAnimatorController GetAnimatorController(Weapon wepon)
+    {
+        switch (wepon.WeaponType)
+        {
+            case Weapons.EmptyHand:
+                return EmptyHand;
+            case Weapons.Sword:
+                return Sword;
+            case Weapons.Unknown:
+                return Default;
+            default:
+                return Default;
+        }
+    }
 }

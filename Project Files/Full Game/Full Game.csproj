@@ -91,9 +91,11 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Sword.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\TimerManagerObject.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\WeaponAnimatorControllerTable.cs" />
     <Compile Include="Assets\Scripts\WeaponScript.cs" />
+    <Compile Include="Assets\UI\Scripts\ProgressBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Maps\Tiled2Unity.export.txt" />

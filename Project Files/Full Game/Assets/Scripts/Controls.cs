@@ -6,6 +6,7 @@ public class Controls : MonoBehaviour
 {
     private static Controls _controls;
 
+
     public static Controls StaticControls
     {
         get { return _controls;}
@@ -34,6 +35,7 @@ public class Controls : MonoBehaviour
     }
 
     public Vector2 LastDirection = Vector2.up;
+    public Vector2 CurrentDirection= Vector2.zero;
 
     private bool _shootButton1;
     public bool ShootButton1
@@ -120,7 +122,6 @@ public class Controls : MonoBehaviour
                 if(Input.GetKeyDown(CurrentControlProfile.Shoot1))
 			    {
 			        _shootButton1 = true;
-                    Debug.Log("ShootButton Down fired");
 			    } else if (Input.GetKeyUp(CurrentControlProfile.Shoot1))
 			    {
 			        _shootButton1 = false;
@@ -163,7 +164,9 @@ public class Controls : MonoBehaviour
                 }
 
                 _horizontalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveHorizontal);    
-                _verticalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveVertical);
+                _verticalAxis = -Input.GetAxisRaw(CurrentControlProfile.MoveVertical);
+
+                CurrentDirection = new Vector2(_horizontalAxis, _verticalAxis).normalized;
 
                 if (HorizontalAxis != 0 | VerticalAxis != 0) //TODO implement DeadZones to this if-statement
                 {

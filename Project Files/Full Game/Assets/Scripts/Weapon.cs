@@ -4,6 +4,12 @@ using UnityEngine;
 
 public abstract class Weapon
 {
+    private Weapons _weaponType = Weapons.Unknown;
+    public Weapons WeaponType
+    {
+        get { return _weaponType; }
+    }
+
     private int _damage;
     public int Damage
     {
@@ -15,15 +21,17 @@ public abstract class Weapon
 
     protected GameObject owner;
 
-    public Weapon(GameObject owner, int damage = 0)
+    public Weapon(GameObject owner, int damage = 0, Weapons weaponType = Weapons.Unknown)
     {
         this.owner = owner;
         this.Damage = damage;
+        this._weaponType = weaponType;
     }
 
-    public abstract WeaponReturn TryToAttack(Vector2 attackingVectore);
 
-    public abstract RuntimeAnimatorController GetAnimatorController();
+    public abstract void UpdateWeapon();
+
+    public abstract WeaponReturn TryToAttack(Vector2 attackingVectore);
 }
 
 public enum WeaponReturn
@@ -36,5 +44,6 @@ public enum WeaponReturn
 public enum Weapons
 {
     EmptyHand,
-    Sword
+    Sword,
+    Unknown
 }
