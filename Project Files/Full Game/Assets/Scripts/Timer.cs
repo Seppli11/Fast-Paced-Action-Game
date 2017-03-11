@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class Timer
@@ -21,25 +20,39 @@ public class Timer
 
     private bool done = false;
 
+    private bool _repeat = false;
+    public bool Repeat { get { return _repeat;} }
+
+    private int _timesToRepeat = 0;
+    public int TimesToRepeat { get { return _timesToRepeat;} }
+    private int _repeatCount = 0;
+    public int RepeatedCount { get { return _repeatCount;} }
+    
+
     public TimerManager Manager
     {
         get { return _manager; }
     }
 
-    public Timer(float time, TimerEnds timerEndsDelegate, TimerManager manager = null)
+    public Timer(float time, TimerEnds timerEndsDelegate, TimerManager manager = null, bool repeat = false, int timesToRepeat = 0)
     {
         this._timeToWait = time;
         this.timerEndsDelegate = timerEndsDelegate;
         this._manager = manager;
-        if(Manager != null) Manager.Add(this);
+        this._repeat = repeat;
+        this._timesToRepeat = timesToRepeat;
+
+        if (Manager != null) Manager.Add(this);
         lastTime = Time.time;
     }
 
-    public Timer(float time, Task task, TimerManager manager = null)
+    public Timer(float time, Task task, TimerManager manager = null, bool repeat = false)
     {
         this._timeToWait = time;
         this.timerEndsDelegate = new TimerEnds(task.DoTask);
         this._manager = manager;
+        this._repeat = repeat;
+
         if (Manager != null) Manager.Add(this);
         lastTime = Time.time;
     }
@@ -49,13 +62,29 @@ public class Timer
         if (Time.time - lastTime > TimeToWait)
         {
             timerEndsDelegate(this);
-            if (Manager != null)
-            {
-                Manager.Delete(this);
-            }
+            _repeatCount++;
 
-            done = true;
+            if (!_repeat)
+            {
+                Stop();
+                return;
+            }
+            if (TimesToRepeat != 0)
+            {
+                if (_repeatCount + 1 >= TimesToRepeat)
+                {
+                    Stop();
+                }
+            }
+            lastTime = Time.time;
         }
+    }
+
+    public void Stop()
+    {
+        done = true;
+        if(Manager != null)
+            Manager.Delete(this);
     }
 }
 
@@ -95,7 +124,7 @@ public class ChangeValueToTask<T> : Task
             lastIndex = 0;
         }
         obj.Value = changeToObject[lastIndex];
-        Debug.Log("haysdefa" + obj.Value);
+        //Debug.Log("haysdefa" + obj.Value);
     }
 }
 
@@ -115,9 +144,11 @@ public class TimerManager
     private List<Timer> timers = new List<Timer>();
     private List<Timer> toDeleteTimers = new List<Timer>();
 
-    public Timer CreateTimer(float time, Timer.TimerEnds timerEndsDelegate)
+    private Object lockObject = new Object();
+
+    public Timer CreateTimer(float time, Timer.TimerEnds timerEndsDelegate, bool repeat = false, int timesToRepeat = 0)
     {
-        Timer t = new Timer(time, timerEndsDelegate, this);
+        Timer t = new Timer(time, timerEndsDelegate, this, repeat, timesToRepeat);
         return t;
     }
 
@@ -130,16 +161,19 @@ public class TimerManager
     public void Update()
     {
         foreach (var t in timers)
-        { 
+        {
             t.Update();
         }
-        foreach (var t in toDeleteTimers)
+        lock (this)
         {
-            timers.Remove(t);
-            Debug.Log("Remove Timer with TimeToWait = " + t.TimeToWait);
+            foreach (var t in toDeleteTimers)
+            {
+                timers.Remove(t);
+                // Debug.Log("Remove Timer with TimeToWait = " + t.TimeToWait);
+            }
+            toDeleteTimers.Clear();
         }
-        toDeleteTimers.Clear();
-    }
+}
 
     internal void Add(Timer t)
     {
@@ -148,7 +182,10 @@ public class TimerManager
 
     internal void Delete(Timer t)
     {
-        toDeleteTimers.Add(t);
+        lock (this)
+        {
+            toDeleteTimers.Add(t);   
+        }
     }
 
     public static TimerManager operator +(TimerManager manager, Timer timer)

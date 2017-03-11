@@ -38,14 +38,30 @@ public class Controls : MonoBehaviour
     private bool _shootButton1;
     public bool ShootButton1
     {
-        get { return _shootButton1; }
+        get
+        {
+            if (_shootButton1)
+            {
+                _shootButton1 = false;
+                return true;
+            }
+            return false;
+        }
         set { _shootButton1 = value; }
     }
 
     private bool _shootButton2;
     public bool ShootButton2
     {
-        get { return _shootButton2; }
+        get
+        {
+            if (_shootButton2)
+            {
+                _shootButton2 = false;
+                return true;
+            }
+            return false;
+        }
         set { _shootButton2 = value; }
     }
 
@@ -101,15 +117,16 @@ public class Controls : MonoBehaviour
             case InputType.Keyboard:
             case InputType.Controller:
 
-                if(Input.GetKey(CurrentControlProfile.Shoot1))
+                if(Input.GetKeyDown(CurrentControlProfile.Shoot1))
 			    {
 			        _shootButton1 = true;
+                    Debug.Log("ShootButton Down fired");
 			    } else if (Input.GetKeyUp(CurrentControlProfile.Shoot1))
 			    {
 			        _shootButton1 = false;
                 }
 
-                if (Input.GetKey(CurrentControlProfile.Shoot2))
+                if (Input.GetKeyDown(CurrentControlProfile.Shoot2))
                 {
                     _shootButton2 = true;
                 }
@@ -118,7 +135,7 @@ public class Controls : MonoBehaviour
                     _shootButton2 = false;
                 }
 
-                if (Input.GetKey(CurrentControlProfile.Teleport))
+                if (Input.GetKeyDown(CurrentControlProfile.Teleport))
                 {
                     _teleportButton = true;
                 }
@@ -148,10 +165,10 @@ public class Controls : MonoBehaviour
                 _horizontalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveHorizontal);    
                 _verticalAxis = Input.GetAxisRaw(CurrentControlProfile.MoveVertical);
 
-                if (HorizontalAxis != 0 | VerticalAxis != 0)
+                if (HorizontalAxis != 0 | VerticalAxis != 0) //TODO implement DeadZones to this if-statement
                 {
                     LastDirection.x = _horizontalAxis;
-                    LastDirection.y = _verticalAxis;
+                    LastDirection.y = -_verticalAxis;
 
                     LastDirection = LastDirection.normalized;
                 }

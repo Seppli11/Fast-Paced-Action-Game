@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
+    private TimerManager timerManager = TimerManager.STimerManager;
+
     private Animator animator;
 
     private Controls controls;
@@ -15,7 +17,6 @@ public class WeaponScript : MonoBehaviour
         set
         {
             _weapon1 = value;
-            _weapon1.enabled = true;
         }
     }
     private Weapon _weapon2;
@@ -25,28 +26,43 @@ public class WeaponScript : MonoBehaviour
         set
         {
             _weapon2 = value;
-            _weapon2.enabled = true;
         }
     }
 
+    private bool attacking = false;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        Weapon1 = new EmptyWeapon(gameObject);
+        Weapon2 = new EmptyWeapon(gameObject);
+
 		controls = Controls.StaticControls;
         animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+
 	    if (controls.ShootButton1)
 	    {
-	        HandlingWeaponReturn(Weapon1.TryToAttack());
+	        HandlingWeaponReturn(Weapon1.TryToAttack(controls.LastDirection));
+	        animator.runtimeAnimatorController = Weapon1.GetAnimatorController();
+            animator.SetTrigger("attack");
+            Debug.Log("Weapon 1 shooted");
 	    }
 	    if (controls.ShootButton2)
 	    {
-	        HandlingWeaponReturn(Weapon2.TryToAttack());
-	    }
+	        HandlingWeaponReturn(Weapon2.TryToAttack(controls.LastDirection));
+            animator.runtimeAnimatorController = Weapon2.GetAnimatorController();
+            animator.SetTrigger("attack");
+            Debug.Log("Weapon 2 shooted");
+        }
 	}
 
+    void FixedUpdate()
+    {
+        
+    }
 
     void HandlingWeaponReturn(WeaponReturn weaponReturn)
     {

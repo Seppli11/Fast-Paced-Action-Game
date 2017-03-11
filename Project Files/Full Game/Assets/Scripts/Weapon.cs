@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour {
+public abstract class Weapon
+{
+    private int _damage;
+    public int Damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+    protected TimerManager timerManager = TimerManager.STimerManager;
 
-    public abstract WeaponReturn TryToAttack();
+    protected GameObject owner;
+
+    public Weapon(GameObject owner, int damage = 0)
+    {
+        this.owner = owner;
+        this.Damage = damage;
+    }
+
+    public abstract WeaponReturn TryToAttack(Vector2 attackingVectore);
+
+    public abstract RuntimeAnimatorController GetAnimatorController();
 }
 
 public enum WeaponReturn
@@ -21,4 +31,10 @@ public enum WeaponReturn
     Attacked,
     OutOfAmo,
     Wait
+}
+
+public enum Weapons
+{
+    EmptyHand,
+    Sword
 }
