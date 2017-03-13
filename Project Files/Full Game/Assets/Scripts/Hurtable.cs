@@ -11,11 +11,14 @@ public class Hurtable : Hittable
     public int MaxLifes;
     public int Lifes;
 
+    public ProgressBar progressBar;
+
 
     public void Heal(int healedLifes)
     {
         Lifes += healedLifes;
         if (Lifes > MaxLifes) Lifes = MaxLifes;
+
     }
 
     public void Damage(int damagedLifes, GameObject attacker = null, Weapon weapon = null)
@@ -36,5 +39,13 @@ public class Hurtable : Hittable
     public override void Hitted(GameObject objectWhichHittedMe, Weapon weapon)
     {
         Damage(weapon.Damage, objectWhichHittedMe, weapon);
+    }
+
+    private void updateProgressBar()
+    {
+        if(progressBar != null)
+        {
+            
+        }
     }
 }

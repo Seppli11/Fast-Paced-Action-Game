@@ -5,27 +5,30 @@ using UnityEngine;
 public class ProgressBar : MonoBehaviour
 {
 
+    public int maxProgress = 100;
     public int progression;
-    private Animator animator;
-    public AnimationState AnimationState;
-
+    public Sprite[] sprites;
+    private SpriteRenderer renderer;
    
 	// Use this for initialization
 	void Start ()
 	{
-	    animator = GetComponent<Animator>();
-        
+        renderer = GetComponent<SpriteRenderer>();        
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    animator.Play("Progress Bar", 0, progression/100);
-        Debug.Log( (float) (1 / 14 * GetProgressionFrame()));
+        Debug.Log(GetProgressionFrame());
+        renderer.sprite = sprites[GetProgressionFrame()];
+
 	}
 
-    private float GetProgressionFrame()
+    private int GetProgressionFrame()
     {
-        return progression * 14 / 100;
+        int frame = progression * sprites.Length / maxProgress;
+        if (frame >= sprites.Length) return sprites.Length - 1;
+        if (frame <= 0) return 0;
+        return frame;
     }
 }

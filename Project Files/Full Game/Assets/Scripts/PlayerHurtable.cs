@@ -17,6 +17,6 @@ public class PlayerHurtable : Hurtable {
 	
 	// Update is called once per frame
 	void Update () {
-		
+	
 	}
 }
