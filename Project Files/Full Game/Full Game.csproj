@@ -87,10 +87,12 @@
     <Compile Include="Assets\Scripts\Hittable.cs" />
     <Compile Include="Assets\Scripts\Hurtable.cs" />
     <Compile Include="Assets\Scripts\KasaObakeAI.cs" />
+    <Compile Include="Assets\Scripts\OrderManager.cs" />
     <Compile Include="Assets\Scripts\PlayerCamera.cs" />
     <Compile Include="Assets\Scripts\PlayerHurtable.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement - Copy.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerUi.cs" />
     <Compile Include="Assets\Scripts\Sword.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\TimerManagerObject.cs" />

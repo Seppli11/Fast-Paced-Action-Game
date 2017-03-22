@@ -18,7 +18,7 @@ public class Hurtable : Hittable
     {
         Lifes += healedLifes;
         if (Lifes > MaxLifes) Lifes = MaxLifes;
-
+        UpdateProgressBar();
     }
 
     public void Damage(int damagedLifes, GameObject attacker = null, Weapon weapon = null)
@@ -28,6 +28,7 @@ public class Hurtable : Hittable
         {
             Die(attacker, weapon);
         }
+        UpdateProgressBar();
     }
 
     public void Die(GameObject attacker, Weapon weapon)
@@ -41,11 +42,11 @@ public class Hurtable : Hittable
         Damage(weapon.Damage, objectWhichHittedMe, weapon);
     }
 
-    private void updateProgressBar()
+    private void UpdateProgressBar()
     {
         if(progressBar != null)
         {
-            
+            progressBar.progression = Lifes;
         }
     }
 }

@@ -18,8 +18,7 @@ public class KasaObakeAI : AI {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(currentState);
-        Debug.Log(animator.GetBool("attacking"));
+        //Debug.Log(currentState);
         switch (currentState)
         {
             case State.Idle:
@@ -32,7 +31,7 @@ public class KasaObakeAI : AI {
                     currentState = State.Idle;
                 if (Vector2.Distance(Player.position, transform.position) < AttackDistance)
                     currentState = State.Attacking;
-                if (animator.GetBool("attacking")) currentState = State.Attacking;
+                //if (animator.GetBool("attacking")) currentState = State.Attacking;
 
                 Vector3 lastTransform = transform.position;
                 transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, MaxSpeed * Time.deltaTime);

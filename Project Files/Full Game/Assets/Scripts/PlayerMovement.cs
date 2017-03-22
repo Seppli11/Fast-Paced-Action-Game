@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public float NonTeleportTime;
     public float TeleportTime;
 
+    private Vector2 teleportDirection = Vector2.zero;
+
     private bool cannotTeleport = false;
     private bool currentlyTeleporting = false;
 
@@ -25,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastPosition;
     public GameObject PlayerShadow;
 
+    private PlayerUi playerUi;
+
     private Rigidbody2D rigidbody;
 	void Start ()
 	{
@@ -33,76 +37,28 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 	    spriteRenderer = GetComponent<SpriteRenderer>();
 	    rigidbody = GetComponent<Rigidbody2D>();
+
+	    playerUi = GetComponent<PlayerUi>();
 	}
 	
 	void FixedUpdate () {
-        /*Vector2 direction = Vector2.zero;
-	    if (controls.HorizontalAxis > 0)
-	    {
-	        //transform.position = new Vector3(transform.position.x + Speed * Time.deltaTime, transform.position.y);
-            //rigidbody.MovePosition(rigidbody.position + new Vector2(2, 0));
-	        direction.x = 1;
-
-	    } else if (controls.HorizontalAxis < 0)
-	    {
-            //transform.position = new Vector3(transform.position.x - Speed * Time.deltaTime, transform.position.y);
-            direction.x = -1;
-        }
-        else
-        {
-            
-        }
-
-        if (controls.VerticalAxis > 0)
-        {
-            direction.y = -1;
-        }
-        else if (controls.VerticalAxis < 0)
-        {
-            direction.y = 1;
-        } else
-        {
-        }
-        */
-
-	   /* if (controls.ShootButton1)
-	    {
-	        animator.SetBool("walking with a sword", true);
-	    }
-	    else
-	    {
-            animator.SetBool("walking with a sword", false);
-        }*/
-
 	    if (controls.TeleportButton)
 	    {
             if(cannotTeleport) return;
-	        //transform.position += new Vector3(controls.LastDirection.x*TeleportSpeed, controls.LastDirection.y * TeleportSpeed);
 	        currentlyTeleporting = true;
 	        cannotTeleport = true;
             timerManager.CreateTimer(TeleportTime, timer => currentlyTeleporting = false);
-	        lastSprite = GetComponent<SpriteRenderer>().sprite;
-	        lastPosition = transform.position;
-	        timerManager.CreateTimer(0.1f, timer =>
-	        {
-	           /* GameObject shadow = Instantiate(PlayerShadow);
-	            shadow.transform.position = lastPosition;
-	            shadow.GetComponent<SpriteRenderer>().sprite = lastSprite;
-	            timerManager.CreateTimer(0.3f, timer1 => Destroy(shadow));*/
+            timerManager.CreateTimer(NonTeleportTime, timer => cannotTeleport = false);
+	        playerUi.teleportingBar.progression = 0;
+            timerManager.CreateTimer(NonTeleportTime/10, timer => playerUi.teleportingBar.progression = timer.RepeatedCount, true, 10);
 
-	            lastSprite = spriteRenderer.sprite;
-	            lastPosition = transform.position;
+	        teleportDirection = controls.LastDirection;
 
-                Debug.Log(timer.RepeatedCount + "/" + timer.TimesToRepeat);
-                if(!currentlyTeleporting) timer.Stop();
-	        }, true);
-	        timerManager.CreateTimer(NonTeleportTime, timer => {
-                cannotTeleport = false;
-	        });
+	        StartCoroutine("TeleportAnimation");
 	    }
 	    if (currentlyTeleporting)
 	    {
-            rigidbody.velocity = new Vector2(controls.LastDirection.x*TeleportSpeed*Time.deltaTime, controls.LastDirection.y*TeleportSpeed * Time.deltaTime);
+            rigidbody.velocity = new Vector2(teleportDirection.x*TeleportSpeed*Time.deltaTime, -teleportDirection.y*TeleportSpeed * Time.deltaTime);
 	    }
 	    else
 	    {
@@ -123,4 +79,23 @@ public class PlayerMovement : MonoBehaviour
            
         }
 	}
+
+    private IEnumerator TeleportAnimation()
+    {
+        lastSprite = GetComponent<SpriteRenderer>().sprite;
+        lastPosition = transform.position;
+        while (currentlyTeleporting)
+        {
+            GameObject shadow = Instantiate(PlayerShadow);
+            shadow.transform.position = lastPosition;
+            shadow.GetComponent<SpriteRenderer>().sprite = lastSprite;
+            timerManager.CreateTimer(0.3f, timer1 => Destroy(shadow));
+
+            lastSprite = spriteRenderer.sprite;
+            lastPosition = transform.position;
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+ 
 }

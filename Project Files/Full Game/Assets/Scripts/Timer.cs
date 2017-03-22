@@ -27,7 +27,11 @@ public class Timer
     public int TimesToRepeat { get { return _timesToRepeat;} }
     private int _repeatCount = 0;
     public int RepeatedCount { get { return _repeatCount;} }
-    
+
+    public float TimerSeconds
+    {
+        get { return Time.time - lastTime; }
+    }
 
     public TimerManager Manager
     {
@@ -71,7 +75,7 @@ public class Timer
             }
             if (TimesToRepeat != 0)
             {
-                if (_repeatCount + 1 >= TimesToRepeat)
+                if (_repeatCount > TimesToRepeat)
                 {
                     Stop();
                 }

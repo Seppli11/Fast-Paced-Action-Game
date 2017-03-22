@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHurtable : Hurtable {
-
+public class PlayerUi : MonoBehaviour
+{
+    public ProgressBar teleportingBar;
 	// Use this for initialization
-	void Start ()
-	{
-	    DieEvents += Died;
+	void Start () {
+		
 	}
-
-    void Died(GameObject attacker, Weapon weapon, Hurtable hurtable)
-    {
-        
-    }
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
+    
 }
