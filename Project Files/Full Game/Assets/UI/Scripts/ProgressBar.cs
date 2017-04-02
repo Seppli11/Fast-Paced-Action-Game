@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
@@ -8,20 +9,28 @@ public class ProgressBar : MonoBehaviour
     public int maxProgress = 100;
     public int progression;
     public Sprite[] sprites;
-    private SpriteRenderer renderer;
+    private Image image;
+	private SpriteRenderer spriteRenderer;
+	public ProgressBarRenderType renderType;
+	public 
    
 	// Use this for initialization
 	void Start ()
 	{
-        renderer = GetComponent<SpriteRenderer>();        
+        image = GetComponent<Image>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		Debug.Log(image);
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-        //Debug.Log(GetProgressionFrame());
-        renderer.sprite = sprites[GetProgressionFrame()];
-
+		//Debug.Log(GetProgressionFrame());
+		if (renderType == ProgressBarRenderType.Image)
+			image.sprite = sprites[GetProgressionFrame()];
+		else
+			spriteRenderer.sprite = sprites[GetProgressionFrame()];
+		
 	}
 
     private int GetProgressionFrame()
@@ -31,4 +40,10 @@ public class ProgressBar : MonoBehaviour
         if (frame <= 0) return 0;
         return frame;
     }
+
+	public enum ProgressBarRenderType
+	{
+		Image,
+		SpriteRenderer
+	}
 }
