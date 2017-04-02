@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerCamera.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponScript.cs" />
+    <Compile Include="Assets\Scripts\UI\InventoryMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerUi.cs" />
     <Compile Include="Assets\Scripts\UI\WeaponPanel.cs" />
@@ -105,6 +106,9 @@
     <Compile Include="Assets\Scripts\Utils\TimerManagerObject.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponFactory.cs" />
+    <Compile Include="Assets\UI\Scripts\ContextMenu.cs" />
+    <Compile Include="Assets\UI\Scripts\InventoryCell.cs" />
+    <Compile Include="Assets\UI\Scripts\Item.cs" />
     <Compile Include="Assets\UI\Scripts\ProgressBar.cs" />
   </ItemGroup>
   <ItemGroup>

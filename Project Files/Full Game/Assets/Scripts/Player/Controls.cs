@@ -6,6 +6,7 @@ public class Controls : MonoBehaviour
 {
     private static Controls _controls;
 
+	public bool disableMovement = false;
 
     public static Controls StaticControls
     {
@@ -98,7 +99,15 @@ public class Controls : MonoBehaviour
 	private bool _inventoryButton;
     public bool InventoryButton
     {
-        get { return _inventoryButton; }
+        get
+		{
+			if (_inventoryButton)
+			{
+				_inventoryButton = false;
+				return true;
+			}
+			return false;
+		}
     }
 
     private bool _menuButton;
@@ -161,15 +170,6 @@ public class Controls : MonoBehaviour
                     _teleportButton = false;
                 }
 
-				if (Input.GetKeyDown(CurrentControlProfile.Roll))
-				{
-					_rollButton = true;
-				}
-				else if (Input.GetKeyUp(CurrentControlProfile.Roll))
-				{
-					_rollButton = false;
-				}
-
 				if (Input.GetKeyDown(CurrentControlProfile.Inventory))
                 {
                     _inventoryButton = true;
@@ -201,7 +201,12 @@ public class Controls : MonoBehaviour
                     LastDirection = LastDirection.normalized;
                 }
 
-                break;
+				if (disableMovement)
+				{
+					resetInput();
+				}
+
+				break;
             case InputType.Touche:
                 break;
         }
@@ -211,6 +216,7 @@ public class Controls : MonoBehaviour
     {
         _horizontalAxis = 0;
         _verticalAxis = 0;
+		CurrentDirection = Vector2.zero;
         _teleportButton = false;
         _shootButton1 = false;
         _shootButton2 = false;

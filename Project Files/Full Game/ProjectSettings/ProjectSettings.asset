@@ -460,8 +460,10 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudServicesEnabled:
+    Collab: 1
+    UNet: 1
+  cloudProjectId: 83a7f06b-f932-4713-9dbe-c2cb41612a0f
+  projectName: Full Game
+  organizationId: sebastian-3825537
   cloudEnabled: 0
