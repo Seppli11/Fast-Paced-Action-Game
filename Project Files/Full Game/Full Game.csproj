@@ -88,28 +88,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AI\KasaObakeAI.cs" />
+    <Compile Include="Assets\Scripts\AI\Side.cs" />
+    <Compile Include="Assets\Scripts\AI\Spawner.cs" />
     <Compile Include="Assets\Scripts\Hurtable\EnemyHurtable.cs" />
     <Compile Include="Assets\Scripts\Hurtable\Hittable.cs" />
     <Compile Include="Assets\Scripts\Hurtable\Hurtable.cs" />
     <Compile Include="Assets\Scripts\Hurtable\PlayerHurtable.cs" />
     <Compile Include="Assets\Scripts\Player\Controls.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCamera.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponScript.cs" />
+    <Compile Include="Assets\Scripts\UI\EscapeMainMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\GameOverMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\InventoryInfo.cs" />
     <Compile Include="Assets\Scripts\UI\InventoryMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\PlayerUi.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\UI\OptionMenu.cs" />
     <Compile Include="Assets\Scripts\UI\WeaponPanel.cs" />
+    <Compile Include="Assets\Scripts\Utils\CameraRatio.cs" />
+    <Compile Include="Assets\Scripts\Utils\GameControl.cs" />
+    <Compile Include="Assets\Scripts\Utils\LanguageAttribute.cs" />
+    <Compile Include="Assets\Scripts\Utils\LanguageManager.cs" />
     <Compile Include="Assets\Scripts\Utils\Movement.cs" />
     <Compile Include="Assets\Scripts\Utils\OrderManager.cs" />
+    <Compile Include="Assets\Scripts\Utils\PickUpHandler.cs" />
     <Compile Include="Assets\Scripts\Utils\Timer.cs" />
     <Compile Include="Assets\Scripts\Utils\TimerManagerObject.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponFactory.cs" />
+    <Compile Include="Assets\UI\Scripts\ComboCounter.cs" />
     <Compile Include="Assets\UI\Scripts\ContextMenu.cs" />
+    <Compile Include="Assets\UI\Scripts\Dragable.cs" />
     <Compile Include="Assets\UI\Scripts\InventoryCell.cs" />
     <Compile Include="Assets\UI\Scripts\Item.cs" />
+    <Compile Include="Assets\UI\Scripts\ItemPanel.cs" />
+    <Compile Include="Assets\UI\Scripts\LoadGameButton.cs" />
     <Compile Include="Assets\UI\Scripts\ProgressBar.cs" />
+    <Compile Include="Assets\UI\Scripts\SaveStateEntry.cs" />
+    <Compile Include="Assets\UI\Scripts\UpgradeUi.cs" />
+    <Compile Include="Assets\UI\Scripts\WeaponUpgradePanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Maps\Tiled2Unity.export.txt" />

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHurtable : Hurtable {
 
 	// Use this for initialization
-	void Start ()
+	new void Start ()
 	{
         base.Start();
 	    DieEvents += Died;
@@ -13,7 +13,7 @@ public class PlayerHurtable : Hurtable {
 
     void Died(GameObject attacker, Weapon weapon, Hurtable hurtable)
     {
-        
+		MenuManager.sMainMenu.ShowMenu(Menu.GameOverMenu, 0);
     }
 	
 	// Update is called once per frame

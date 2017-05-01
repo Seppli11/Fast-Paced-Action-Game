@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHurtable : Hurtable {
-    void Start()
+	public int pointsForPlayer;
+    new void Start()
     {
         base.Start();
         DieEvents += Died;    
@@ -12,5 +13,6 @@ public class EnemyHurtable : Hurtable {
     void Died(GameObject attacker, Weapon weapon, Hurtable hurtable)
     {
         GameObject.Destroy(gameObject);
+		InventoryInfo.inventoryInfo.currencyLeft += pointsForPlayer;
     }
 }

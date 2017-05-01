@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KasaObakeAI : MonoBehaviour {
-    public Transform Player;
+    public Transform player;
     public int MaxSeeDistance;
     public float AttackDistance;
     public float MaxSpeed;
@@ -19,7 +19,8 @@ public class KasaObakeAI : MonoBehaviour {
 	void Start () {
         animator = GetComponent<Animator>();
 		movement = GetComponent<Movement>();
-		weapon = WeaponFactory.weaponFactory.GetLickAttack(gameObject, 5);
+		weapon = WeaponFactory.weaponFactory.GetLickAttack(gameObject, 2);
+		player = Player.player.transform;
 	}
 	
 	// Update is called once per frame
@@ -29,16 +30,16 @@ public class KasaObakeAI : MonoBehaviour {
         {
             case State.Idle:
                 animator.SetBool("walking", false);
-                if(Vector2.Distance(Player.position, transform.position) <= MaxSeeDistance)
+                if(Vector2.Distance(player.position, transform.position) <= MaxSeeDistance)
                     currentState = State.Walking;
                 break;
             case State.Walking:
-				if (Vector2.Distance(Player.position, transform.position) > MaxSeeDistance)
+				if (Vector2.Distance(player.position, transform.position) > MaxSeeDistance)
 				{
 					currentState = State.Idle;
 					return;
 				}
-				if (Vector2.Distance(Player.position, transform.position) < AttackDistance)
+				if (Vector2.Distance(player.position, transform.position) < AttackDistance)
 				{
 					movement.velocity = Vector2.zero;
 					movement.rotationCopiesLastDirection = false;
@@ -48,12 +49,12 @@ public class KasaObakeAI : MonoBehaviour {
                 //if (animator.GetBool("attacking")) currentState = State.Attacking;
 
                 Vector3 lastTransform = transform.position;
-                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, MaxSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, MaxSpeed * Time.deltaTime);
                 Vector2 diff = transform.position - lastTransform;
 				movement.velocity = diff;
                 break;
             case State.Attacking:
-                if (Vector2.Distance(Player.position, transform.position) >= AttackDistance)
+                if (Vector2.Distance(player.position, transform.position) >= AttackDistance)
                 {
 					if (animator.GetBool("attack") == false)
 					{
@@ -63,7 +64,7 @@ public class KasaObakeAI : MonoBehaviour {
                 } /*else if (animator.GetBool("attacking") == false)
                     animator.SetTrigger("attacking");*/
 
-				Vector3 moveToVec = Vector3.MoveTowards(transform.position, Player.transform.position, MaxSpeed * Time.deltaTime);
+				Vector3 moveToVec = Vector3.MoveTowards(transform.position, player.transform.position, MaxSpeed * Time.deltaTime);
 				movement.rotation = moveToVec - transform.position;
 				weapon.Attack();
                 break;
@@ -74,9 +75,16 @@ public class KasaObakeAI : MonoBehaviour {
         }
 	}
 
-    
+	private void OnDestroy()
+	{
+		//destroys the children of kase obake lilke the weapon.
+		for(int i = 0; i < transform.childCount; i++)
+		{
+			Destroy(transform.GetChild(i).gameObject);
+		}
+	}
 
-    enum State
+	enum State
     {
         Idle,
         Walking,

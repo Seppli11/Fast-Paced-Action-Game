@@ -1,0 +1,16 @@
+,,
+#testScene2,,
+testScene2.Main Ui.GameUi.Text.Text,0x,
+testScene2.Main Ui.InventoryMenu.ContextMenu.ContextPanel.ContextText.ContextText,,
+testScene2.Main Ui.MainMenu.MainMenu.Panel.MenuText.MenuText,Menu,Menu
+testScene2.Main Ui.MainMenu.MainMenu.Panel.Resume.Text.Text,!!resume,Resume Game
+testScene2.Main Ui.MainMenu.MainMenu.Panel.Option.Text.Text,!!options,Options
+testScene2.Main Ui.MainMenu.MainMenu.Panel.Exit.Text.Text,!!exit,Exit Game
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.OptionText.OptionText,!!optionTitel,Options
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Graphics.Graphics,Graphics,Graphics
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Resolution Dropdown.Label.Label,1920 x 1080,
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Resolution Dropdown.Template.Viewport.Content.Item.Item Label.Item Label,Option A,
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Fullscreen.Label.Label,Fullscreen,Fullscreen
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Anti-Aliasing.Label.Label,Anti-Aliasing,Anti-Aliasing
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Buttons.Back Button.Text.Text,Back,Back
+testScene2.Main Ui.MainMenu.OptionMenu.Panel.Scroll View.Viewport.Content.Buttons.Apply Button.Text.Text,Apply,Apply

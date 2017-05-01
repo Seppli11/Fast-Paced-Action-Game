@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponFactory : MonoBehaviour {
-	private static WeaponFactory _weaponFactory;
 	public static WeaponFactory weaponFactory {
-		get { return _weaponFactory; }
+		get;
+		private set;
 	}
 
 
-	public GameObject emptyHandPrefab;
 	public GameObject swordPrefab;
 	public GameObject lickAttackPrefab;
 	// Use this for initialization
 
 	private void Awake()
 	{
-		_weaponFactory = GameObject.Find("WeaponFactory").GetComponent<WeaponFactory>();
+		weaponFactory = this;
 	}
 
 	void Start () {
@@ -28,29 +27,69 @@ public class WeaponFactory : MonoBehaviour {
 		
 	}
 
-	public Weapon GetEmptyHand(GameObject parent)
+	/// <summary>
+	/// Returns a sword with the setted parameters.
+	/// </summary>
+	/// <param name="parent">The parent of the weapon</param>
+	/// <param name="damage">The damage of the sword</param>
+	/// <param name="attackWaitTime">The time which should eleaps before the next attack is possible.</param>
+	/// <returns></returns>
+	public Weapon GetSword(GameObject parent, int damage, float attackWaitTime = 2, Movement movement = null)
 	{
-		Weapon wr = GetWeapon(parent, emptyHandPrefab);
-		return wr;
-	}
-
-	public Weapon GetSword(GameObject parent, int damage, float attackWaitTime = 2)
-	{
-		Weapon wr = GetWeapon(parent, swordPrefab);
+		Weapon wr = GetWeapon(parent, swordPrefab, movement);
 		wr.damage = damage;
 		wr.attackWaitTime = attackWaitTime;
 		return wr;
 	}
 
-	public Weapon GetLickAttack(GameObject parent, int damage)
+	/// <summary>
+	/// Returns the LickAttack of the Kasa Obake.
+	/// </summary>
+	/// <param name="parent"></param>
+	/// <param name="damage"></param>
+	/// <returns></returns>
+	public Weapon GetLickAttack(GameObject parent, int damage, Movement movement = null)
 	{
-		Weapon wr = GetWeapon(parent, lickAttackPrefab);
+		Weapon wr = GetWeapon(parent, lickAttackPrefab, movement);
 		wr.damage = damage;
 		return wr;
 	}
 
-	private Weapon GetWeapon(GameObject parent, GameObject prefab)
+	public Weapon GetWeapon(GameControl.WeaponData weaponData, GameObject parent)
 	{
+		Weapon rWeapon = null;
+		switch (weaponData.itemType.specificItemType){
+			case SpecificItemType.LickAttack:
+				rWeapon = GetLickAttack(parent, weaponData.damage);
+				break;
+			case SpecificItemType.Sword:
+				rWeapon = GetSword(parent, weaponData.damage, weaponData.attackTime);
+				break;
+			default:
+				Debug.LogError("SpecifiedItemType '" + weaponData.itemType.specificItemType + "' isn't supported!");
+				return null;
+		}
+		rWeapon.damage = weaponData.damage;
+		rWeapon.raycastLength = weaponData.raycastRange;
+		rWeapon.maxLoadedAmmo = weaponData.maxLoadedAmmo;
+		rWeapon.maxAmmoInMagasin = weaponData.maxAmmoInMagasin;
+		rWeapon.attackWaitTime = weaponData.attackTime;
+		rWeapon.reloadTime = weaponData.reloadTime;
+
+		foreach (var u in weaponData.upgrades) rWeapon.SetWeaponToUpgrade(u);
+		return rWeapon;
+	}
+
+	/// <summary>
+	/// is the base function of every GetWeapon Function in the WeaponFactory <br/>
+	/// It sets the position, the parent/owner and the animator.
+	/// </summary>
+	/// <param name="parent">the parent of the weapon</param>
+	/// <param name="prefab">the prefab which will be instantiated.</param>
+	/// <returns></returns>
+	private Weapon GetWeapon(GameObject parent, GameObject prefab, Movement movement)
+	{
+		if (parent == null) parent = gameObject;
 		GameObject go = Instantiate(prefab, parent.transform, true);
 		go.transform.position = parent.transform.position;
 
@@ -61,8 +100,10 @@ public class WeaponFactory : MonoBehaviour {
 			return null;
 		}
 
+		wr.laysOnGround = false;
 		wr.owner = parent;
 		wr.animator = parent.GetComponent<Animator>();
+		wr.movement = movement ?? parent.GetComponent<Movement>();
 		return wr;
 	}
 }

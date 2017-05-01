@@ -1,0 +1,10 @@
+@MainMenu,
+startNewGame,Start a new game
+loadGame,Load game
+options,Options
+exit,Exit
+,
+@testScene2,
+resume,Resume Game
+options,Options
+exit,Exit

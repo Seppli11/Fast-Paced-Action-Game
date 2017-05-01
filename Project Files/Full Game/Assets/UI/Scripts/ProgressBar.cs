@@ -19,7 +19,6 @@ public class ProgressBar : MonoBehaviour
 	{
         image = GetComponent<Image>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		Debug.Log(image);
 	}
 	
 	// Update is called once per frame

@@ -4,11 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponPanel : MonoBehaviour {
+	public Sprite defaultSprite;
 	public ProgressBar progressBar;
 	public Sprite weaponSprite
 	{
 		get { return image.sprite; }
-		set { image.sprite = value; }
+		set {
+			image.sprite = value;
+			if (value == null)
+				image.sprite = defaultSprite;
+		}
 	}
 
 	public Image image;

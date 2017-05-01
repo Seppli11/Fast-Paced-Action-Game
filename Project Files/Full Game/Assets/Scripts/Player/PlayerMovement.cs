@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handels the playermovement and the animatino of the movement
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     private TimerManager timerManager;
@@ -25,11 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastPosition;
     public GameObject PlayerShadow;
 
-    private PlayerUi playerUi;
-
 	private Movement movement;
-
-	private BoxCollider2D colider;
 
 	public ProgressBar[] teleportProgressBars;
 	private int MaxTeleportProgress;
@@ -57,9 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
 		movement = GetComponent<Movement>();
 
-	    playerUi = GetComponent<PlayerUi>();
-
-		colider = GetComponent<BoxCollider2D>();
 		MaxTeleportProgress = teleportProgressBars.Length * 100;
 		teleportProgress = MaxTeleportProgress;
 	}
