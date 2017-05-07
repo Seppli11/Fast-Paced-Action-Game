@@ -148,8 +148,6 @@ public class TimerManager
     private List<Timer> timers = new List<Timer>();
     private List<Timer> toDeleteTimers = new List<Timer>();
 
-    private Object lockObject = new Object();
-
     public Timer CreateTimer(float time, Timer.TimerEnds timerEndsDelegate, bool repeat = false, int timesToRepeat = 0)
     {
         Timer t = new Timer(time, timerEndsDelegate, this, repeat, timesToRepeat);

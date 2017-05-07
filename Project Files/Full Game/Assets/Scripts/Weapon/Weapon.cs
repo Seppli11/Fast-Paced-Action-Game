@@ -4,25 +4,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : Item {
-    [Space(20)]
+public class Weapon : Item, DamageDealer {
+	[Space(20)]
 	//public RuntimeAnimatorController runtimeAnimatorController;
 	[HideInInspector] public Animator animator; //set in WeaponFactory
 	public bool attackAnimationIsBool = false;
 	public string attackAnimation = "attack";
+	public string attackState = "Attacking";
 	public string reloadAnimation = "reload";
 
-	public float timeToAttack = 0f;
 	//public WeaponType weaponType;
 	[HideInInspector] public GameObject owner;//set in WeaponFactory
-	public int damage; 
+	public int damage;
 
 	[Space(10)]
 	public WeaponAttackType attackType;
 
 	public float raycastLength;
 	public GameObject prefab;
-	
+
 
 	[Space(20)]
 	public bool hasToReload;
@@ -35,7 +35,11 @@ public class Weapon : Item {
 	[Space(20)]
 	public float attackTime;
 	public float attackWaitTime;
+	public float timeToAttack = 0f;
 	public float reloadTime;
+
+	[Space(20)]
+	public bool roundAngle;
 
 	private float lastAttackTime;
 	private float lastReloadTime;
@@ -43,6 +47,11 @@ public class Weapon : Item {
 	[HideInInspector] public Movement movement; //set in factory
 
 	public Upgrade[] avaibleUpgrades;
+
+	public bool attacking {
+		get;
+		private set;
+	}
 
 	public override void UpdateHowerText()
 	{
@@ -62,7 +71,7 @@ public class Weapon : Item {
 		base.UpdateHowerText(); //calls the base method in which the string gets compiled
 	}
 
-	private void Start()
+	new private void Start()
 	{
 		base.Start();
 		foreach(var u in avaibleUpgrades)
@@ -73,14 +82,32 @@ public class Weapon : Item {
 
 	private void FixedUpdate()
 	{
+		
 		if (movement != null)
 		{
-			//is used to copy the location of the parent to the colider
-			float angle = Mathf.Atan2(-movement.rotation.x, movement.rotation.y) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			if (attacking) return;
+			RotateColider();
 		}
 	}
 
+	private void RotateColider()
+	{
+		//is used to copy the location of the parent to the colider
+		float angle = Mathf.Atan2(-movement.rotation.x, movement.rotation.y) * Mathf.Rad2Deg;
+		//Debug.Log("befor: " + angle + ", after: " + (Mathf.Round(angle / 90) * 90));
+		if (roundAngle) angle = Mathf.Round(angle / 90) * 90;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		//Debug.Log("Update Colider: " + angle + ", -movement.x:" + -movement.rotation.x + ", movement.y: " + movement.rotation.y);$
+		//Debug.Log("Update Colider");
+	}
+
+	//interface function
+	public int GetDamage()
+	{
+		return damage;
+	}
+
+	int counter = 0;
 	/// <summary>
 	/// Attacks with the setted Type (AttackType).
 	/// </summary>
@@ -89,8 +116,11 @@ public class Weapon : Item {
 	/// </returns>
 	public AttackReturn Attack()
 	{
-		if (lastAttackTime + attackTime > Time.time) return AttackReturn.Attacking;
+		//Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"));
+		if (attacking) return AttackReturn.Attacking;
 		if (lastAttackTime + attackWaitTime > Time.time) return AttackReturn.Waiting;
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackState)) return AttackReturn.Attacking;
+	
 		if(hasToReload)
 		{
 			if(loadedAmmo <= 0)
@@ -98,27 +128,39 @@ public class Weapon : Item {
 				if (!hasInfinitAmmo) return AttackReturn.NeedToReload;
 			}
 		}
-		lastAttackTime = Time.time;
-		//animator.runtimeAnimatorController = runtimeAnimatorController;
-		StartCoroutine(Private_Attack());
-		return AttackReturn.Attacked;
-	}
 
-	private IEnumerator Private_Attack()
-	{
-		float startAttack = Time.time;
-		while (startAttack + timeToAttack > Time.time) yield return new WaitForSeconds(0.1f);
-		Debug.Log("Start Attacking");
+		RotateColider();
+
+		lastAttackTime = Time.time;
+		attacking = true;
+		TimerManager.STimerManager.CreateTimer(attackTime, t => { attacking = false; });
 		if (attackAnimationIsBool)
 		{
 			animator.SetBool(attackAnimation, true);
 			TimerManager.STimerManager.CreateTimer(attackTime, (t) => {
 				if (animator != null)
 					animator.SetBool(attackAnimation, false);
+				
 			});
 		}
 		else
 			animator.SetTrigger(attackAnimation);
+		counter++;
+		//Debug.Log("Attack " + counter);
+		for(int i = 0; i < 20; i++)
+		{
+			if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackState)) break;
+		}
+		StartCoroutine(Private_Attack());
+		return AttackReturn.Attacked;
+	}
+
+	private IEnumerator Private_Attack()
+	{
+		yield return new WaitForFixedUpdate();
+		float startAttack = Time.time;
+		while (startAttack + timeToAttack > Time.time) yield return new WaitForSeconds(0.01f);
+		//Debug.Log("Start Attacking " + counter);
 
 		switch (attackType)
 		{
@@ -317,8 +359,8 @@ public class Weapon : Item {
 				if(!hittable.Contains(h))
 					hittable.Add(h);
 			}
-			else if (!owner.GetComponent<Side>().enemy)
-				Debug.Log(collision.gameObject.name + " is on the player's side");
+			/*else if (!owner.GetComponent<Side>().enemy)
+				Debug.Log(collision.gameObject.name + " is on the player's side");*/
 		}
 	}
 
@@ -336,7 +378,11 @@ public class Weapon : Item {
 			Debug.LogError("Prefab is null!");
 			return;
 		}
-		Instantiate(prefab);
+		GameObject go = Instantiate(prefab, transform);
+		Vector2 direction = new Vector2(movement.rotation.x, movement.rotation.y).normalized;
+		if (roundAngle) direction = new Vector2(Mathf.Round(direction.x), Mathf.Round(direction.y));
+		go.transform.position = ((Vector2) transform.position) + direction;
+		go.GetComponent<Projectile>().Setup(owner, this, direction);
 	}
 	#endregion
 
@@ -352,13 +398,13 @@ public class Weapon : Item {
 			{
 				if (owner.GetComponent<Side>().enemy != hit.collider.gameObject.GetComponent<Side>().enemy)
 				{
-					if(!owner.GetComponent<Side>().enemy) ComboCounter.comboCounter.RegisterHit();
 					h.Hitted(owner, this);
 				} 
 			}
 		}
 	}
-#endregion
+
+	#endregion
 }
 
 

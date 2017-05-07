@@ -128,7 +128,7 @@ public class MenuManager : MonoBehaviour
 				ChangeCamera(bluryCamera);
 				break;
 			case Menu.GameOverMenu:
-				GameControl.gameControl.SaveSaveState(GameControl.currentSaveState);
+				//GameControl.gameControl.SaveSaveState(GameControl.currentSaveState);
 				gameOverMenu.SetActive(true);
 				ChangeCamera(bluryCamera);
 				break;

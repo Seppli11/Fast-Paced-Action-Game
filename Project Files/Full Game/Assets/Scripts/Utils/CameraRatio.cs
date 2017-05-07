@@ -7,17 +7,17 @@ public class CameraRatio : MonoBehaviour
 {
 	public float ratioX, ratioY;
 	private float ratio;
-	private Camera camera;
+	private Camera componentCamera;
 
 	// Use tis for initialization
 	void Start ()
 	{
 		ratio = ratioX / ratioY;
-		camera = GetComponent<Camera>();
-		camera.projectionMatrix = Matrix4x4.Ortho(
-			-camera.orthographicSize*ratio, camera.orthographicSize*ratio,
-			-camera.orthographicSize, camera.orthographicSize,
-			camera.nearClipPlane, camera.farClipPlane);
+		componentCamera = GetComponent<Camera>();
+		componentCamera.projectionMatrix = Matrix4x4.Ortho(
+			-componentCamera.orthographicSize*ratio, componentCamera.orthographicSize*ratio,
+			-componentCamera.orthographicSize, componentCamera.orthographicSize,
+			componentCamera.nearClipPlane, componentCamera.farClipPlane);
 	}
 	
 	// Update is called once per frame

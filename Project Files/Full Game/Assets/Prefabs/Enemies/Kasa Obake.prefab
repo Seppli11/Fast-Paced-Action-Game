@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114985555980479488}
   - component: {fileID: 114317448912766802}
   - component: {fileID: 114262001136156142}
+  - component: {fileID: 114078893086740160}
   m_Layer: 10
   m_Name: Kasa Obake
   m_TagString: ManagedByOrderManager
@@ -58,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1208936926684170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.013, y: 0.182, z: 1.332796}
+  m_LocalPosition: {x: -0.013, y: 0.182, z: 0}
   m_LocalScale: {x: 1.7567921, y: 1.7567921, z: 0.012199945}
   m_Children: []
   m_Father: {fileID: 4950113040991528}
@@ -72,7 +73,7 @@ Transform:
   m_GameObject: {fileID: 1226485443869882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.056734, y: -5.9508543, z: 0.49}
-  m_LocalScale: {x: 8.3452015, y: 8.3452015, z: 3.9264572}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4517181659050890}
   m_Father: {fileID: 0}
@@ -85,9 +86,9 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1226485443869882}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
@@ -129,6 +130,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114078893086740160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1226485443869882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908709e97c7d99444ad2a2045256b5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!114 &114262001136156142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,6 +170,8 @@ MonoBehaviour:
   animatorWalkingY: y
   rotationCopiesLastDirection: 1
   velocity: {x: 0, y: 0}
+  multiplier: 1
+  lockMovement: 0
 --- !u!114 &114583723223244856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,8 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  MaxSeeDistance: 10
-  AttackDistance: 1.7
+  MaxSeeDistance: 20
+  AttackDistance: 1.4
   MaxSpeed: 5
 --- !u!114 &114985555980479488
 MonoBehaviour:
@@ -213,10 +228,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429eebf221940db478bf6a20d08aa809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxLifes: 20
-  Lifes: 20
+  MaxLifes: 18
+  Lifes: 18
   progressBar: {fileID: 114583723223244856}
+  pointsForPlayerMultiplier: 5
   pointsForPlayer: 100
+  throwableItems:
+  - item:
+      generalItemType: 1
+      specificItemType: 3
+    probability: 0.2
 --- !u!212 &212210303510833036
 SpriteRenderer:
   m_ObjectHideFlags: 1

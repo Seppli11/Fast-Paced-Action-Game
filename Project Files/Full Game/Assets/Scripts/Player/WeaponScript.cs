@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
-    private Animator animator;
-
     private Controls controls;
 
-    private bool attacking = false;
-    // Use this for initialization
     void Start ()
 	{ 
 		controls = Controls.StaticControls;
-        animator = GetComponent<Animator>();
     }
 	
 	void Update () {
@@ -33,7 +28,7 @@ public class WeaponScript : MonoBehaviour
 
     void HandlingAttackReturn(AttackReturn weaponReturn, WeaponPanel panel, Weapon weapon)
     {
-		Debug.Log(weaponReturn);
+		//Debug.Log(weaponReturn);
         switch (weaponReturn)
         {
            case AttackReturn.Attacked:
@@ -61,8 +56,6 @@ public class WeaponScript : MonoBehaviour
 			yield return new WaitForSeconds(waitTime);
 		}
 		panel.progressBar.progression = 100;
-		float timeNeeded = Time.time - startTime;
-		//Debug.Log("TimeNeeded: " + timeNeeded + ", waitTime: " + weapon.attackWaitTime);
 	}
 }
 

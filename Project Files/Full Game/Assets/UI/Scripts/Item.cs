@@ -45,9 +45,13 @@ public abstract class Item : MonoBehaviour{
 
 	public ItemType itemType;
 
+	public bool useOnPickUp;
 	public bool laysOnGround;
 
-	private Renderer renderer;
+	public int uses;
+	public int usesToDestroy = -1;
+
+	private Renderer localRenderer;
 
 	/// <summary>
 	/// Makes a new line in the item description.
@@ -69,17 +73,32 @@ public abstract class Item : MonoBehaviour{
 
 	protected void Start()
 	{
-		renderer = GetComponent<Renderer>();
+		localRenderer = GetComponent<Renderer>();
 	}
 	protected void Update()
 	{
-		renderer.enabled = laysOnGround;
+		localRenderer.enabled = laysOnGround;
 	}
 
 	public virtual void PickedUp (GameObject owner)
 	{
 
 	}
+
+	public void Use()
+	{
+		uses++;
+		Use_Internal();
+		if(usesToDestroy >= 0)
+		{
+			if(uses >= usesToDestroy)
+			{
+				Destroy(gameObject);
+			}
+		}
+	}
+
+	protected virtual void Use_Internal() { }
 
 	/// <summary>
 	/// gets called from the <see cref="InventoryCell"/> in the Update() method.
@@ -101,6 +120,10 @@ public abstract class Item : MonoBehaviour{
 	    if (!laysOnGround) return;
 		if (collision.gameObject.GetComponent<Player>() != null)
 		{
+			if(useOnPickUp)
+			{
+				Use();
+			}
 			bool r = InventoryMenu.inventoryMenu.AddItem(this);
 		    if (!r) Debug.Log("Couldn't add item " + itemName);
 		    else laysOnGround = false;
@@ -110,13 +133,18 @@ public abstract class Item : MonoBehaviour{
 
 public enum GeneralItemType
 {
-	Weapon
+	Weapon,
+	Item
 }
 
 public enum SpecificItemType
 {
 	Sword,
 	LickAttack,
+	SandThrowAttack,
+
+	Medipack,
+
 	NotSpecified
 }
 

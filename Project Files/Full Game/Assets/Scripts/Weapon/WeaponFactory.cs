@@ -11,6 +11,7 @@ public class WeaponFactory : MonoBehaviour {
 
 	public GameObject swordPrefab;
 	public GameObject lickAttackPrefab;
+	public GameObject sandThrowAttackPrefab;
 	// Use this for initialization
 
 	private void Awake()
@@ -55,7 +56,14 @@ public class WeaponFactory : MonoBehaviour {
 		return wr;
 	}
 
-	public Weapon GetWeapon(GameControl.WeaponData weaponData, GameObject parent)
+	public Weapon GetSandThrowAttack(GameObject parent, int damage, Movement movement = null)
+	{
+		Weapon wr = GetWeapon(parent, sandThrowAttackPrefab, movement);
+		wr.damage = damage;
+		return wr;
+	}
+
+	/*public Weapon GetWeapon(GameControl.WeaponData weaponData, GameObject parent)
 	{
 		Weapon rWeapon = null;
 		switch (weaponData.itemType.specificItemType){
@@ -78,7 +86,7 @@ public class WeaponFactory : MonoBehaviour {
 
 		foreach (var u in weaponData.upgrades) rWeapon.SetWeaponToUpgrade(u);
 		return rWeapon;
-	}
+	}*/
 
 	/// <summary>
 	/// is the base function of every GetWeapon Function in the WeaponFactory <br/>

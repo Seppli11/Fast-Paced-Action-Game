@@ -33,12 +33,10 @@ public class InventoryInfo : MonoBehaviour {
 	IEnumerator CurrencyLeftAnimation()
 	{
 		int lastCurrencyLeft = currencyLeft;
-		bool missingNegative = false;
 		while (true)
 		{
 			lastCurrencyLeft = currencyLeft;
 			//Debug.Log("currencyLeft:" + currencyLeft + ", animationCurrencyLeft:" + animationCurrencyLeft);
-			missingNegative = currencyLeft - animationCurrencyLeft < 0;
 			float steps = (currencyLeft - animationCurrencyLeft) / 10;
 			while(animationCurrencyLeft != currencyLeft)
 			{

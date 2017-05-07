@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryCell : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-	private RectTransform rectTransform;
 	private Image itemImage;
 
 	private Item _item;
@@ -38,16 +37,13 @@ public class InventoryCell : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			}
 			_item = value;
 			value.itemImage.transform.SetParent(transform);
+			//value.itemImage.GetComponent<RectTransform>().rect.Set(0, 0, GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
 		}
 	}
 
 	public ItemType[] acceptedItemTypes = {};
 
 	private bool hoverOverCell = false;
-	// Use this for initialization
-	void Start () {
-		rectTransform = GetComponent<RectTransform>();
-	}
 	
 	// Update is called once per frame
 	void Update () {

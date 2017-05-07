@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
 		if (collision.gameObject.GetComponent<Hittable>() == null) return;
 		Collider2D collider = collision.collider;
 		collider.enabled = false;
-		timerManager.CreateTimer(0.2f, timer => collider.enabled = true);
+		timerManager.CreateTimer(0.4f, timer => { if (collider != null) collider.enabled = true; });
 	}
 
 	private void UpdatingTeleportBars()

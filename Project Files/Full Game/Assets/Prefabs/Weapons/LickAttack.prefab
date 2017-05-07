@@ -59,8 +59,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0}
-      - {x: -1, y: 2}
-      - {x: 1, y: 2}
+      - {x: -0.4, y: 0.5}
+      - {x: 0.4, y: 0.5}
 --- !u!61 &61576611904740830
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -72,9 +72,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.003189462, y: -0.12916803}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.10698577, y: 0.09741752}
 --- !u!114 &114530687679474772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,12 +90,15 @@ MonoBehaviour:
   itemType:
     generalItemType: 0
     specificItemType: 1
+  useOnPickUp: 0
   laysOnGround: 0
+  uses: 0
+  usesToDestroy: -1
   animator: {fileID: 0}
-  attackAnimationIsBool: 1
+  attackAnimationIsBool: 0
   attackAnimation: attack
+  attackState: Attacking
   reloadAnimation: 
-  timeToAttack: 1
   owner: {fileID: 0}
   damage: 5
   attackType: 1
@@ -107,9 +110,11 @@ MonoBehaviour:
   maxLoadedAmmo: 0
   ammoInMagasin: 0
   maxAmmoInMagasin: 0
-  attackTime: 1
-  attackWaitTime: 1.2
+  attackTime: 2
+  attackWaitTime: 2
+  timeToAttack: 1.3
   reloadTime: 0
+  roundAngle: 0
   movement: {fileID: 0}
   avaibleUpgrades: []
 --- !u!212 &212438340744369852

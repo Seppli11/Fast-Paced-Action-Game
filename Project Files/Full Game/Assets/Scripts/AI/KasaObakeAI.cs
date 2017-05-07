@@ -48,25 +48,24 @@ public class KasaObakeAI : MonoBehaviour {
 				}
                 //if (animator.GetBool("attacking")) currentState = State.Attacking;
 
-                Vector3 lastTransform = transform.position;
-                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, MaxSpeed * Time.deltaTime);
-                Vector2 diff = transform.position - lastTransform;
-				movement.velocity = diff;
+				// Vector3 movTo = Vector3.MoveTowards(transform.position, player.transform.position, MaxSpeed * Time.deltaTime);
+				movement.velocity = (player.transform.position - transform.position).normalized * MaxSpeed;
                 break;
             case State.Attacking:
                 if (Vector2.Distance(player.position, transform.position) >= AttackDistance)
                 {
-					if (animator.GetBool("attack") == false)
+					if(!weapon.attacking)
 					{
 						movement.rotationCopiesLastDirection = true;
 						currentState = State.Walking;
+						break;
 					}
-                } /*else if (animator.GetBool("attacking") == false)
-                    animator.SetTrigger("attacking");*/
-
-				Vector3 moveToVec = Vector3.MoveTowards(transform.position, player.transform.position, MaxSpeed * Time.deltaTime);
-				movement.rotation = moveToVec - transform.position;
-				weapon.Attack();
+                }
+				if (!weapon.attacking)
+				{
+					movement.rotation = (player.transform.position - transform.position).normalized;
+					weapon.Attack();
+				}
                 break;
             default:
                 Debug.LogError("Unknown State '" + currentState + "'");

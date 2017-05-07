@@ -9,9 +9,14 @@ public class PlayerHurtable : Hurtable {
 	{
         base.Start();
 	    DieEvents += Died;
+		DamagedEvents += PlayerHurtable_DamagedEvents;
 	}
 
-    void Died(GameObject attacker, Weapon weapon, Hurtable hurtable)
+	private void PlayerHurtable_DamagedEvents(int health, int damage)
+	{
+	}
+
+	void Died(GameObject attacker, Weapon weapon, Hurtable hurtable)
     {
 		MenuManager.sMainMenu.ShowMenu(Menu.GameOverMenu, 0);
     }

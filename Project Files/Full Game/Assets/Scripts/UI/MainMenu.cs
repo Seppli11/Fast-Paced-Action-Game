@@ -24,16 +24,16 @@ public class MainMenu : MonoBehaviour {
 	private void Awake()
 	{
 		sMainMenu = this;
-		if(GameControl.gameControl != null)
+		/*if(GameControl.gameControl != null)
 			GameControl.gameControl.shouldLoadScene = false;
-		GameControl.currentSaveState = null;
+		GameControl.currentSaveState = null;*/
 		Time.timeScale = 1;
 	}
 
 	// Use this for initialization
 	void Start () {
-		LoadSaveStateEntries();
-		Debug.Log(Application.persistentDataPath);
+		//LoadSaveStateEntries();
+		//Debug.Log(Application.persistentDataPath);
 	}
 	
 	// Update is called once per frame
@@ -41,9 +41,9 @@ public class MainMenu : MonoBehaviour {
 		
 	}
 
-	void LoadSaveStateEntries()
+	/*void LoadSaveStateEntries()
 	{
-		GameControl.gameControl.LoadSaveStateList();
+		//GameControl.gameControl.LoadSaveStateList();
 
 		for (int i = 0; i < parentOfSaveStateEntries.transform.childCount; i++)
 		{
@@ -54,7 +54,7 @@ public class MainMenu : MonoBehaviour {
 			GameObject go = Instantiate(saveStateEntryPrefab, parentOfSaveStateEntries.transform);
 			go.GetComponent<SaveStateEntry>().saveState = ss;
 		}
-	}
+	}*/
 
 	public void MainMenu_Btn(int b)
 	{
@@ -88,9 +88,10 @@ public class MainMenu : MonoBehaviour {
 				startNewGameMenuAnimator.SetTrigger("Left");
 				StartCoroutine(IsDone(startNewGameMenuAnimator, "2LeftMenuStartNewGame", () =>
 				{
-					SaveState ss = GameControl.gameControl.CreateNewSaveState(saveStateName.text);
+					/*SaveState ss = GameControl.gameControl.CreateNewSaveState(saveStateName.text);
 					GameControl.currentSaveState = ss;
-					GameControl.gameControl.shouldLoadScene = true;
+					GameControl.gameControl.shouldLoadScene = true;*/
+					Leaderboard.currentUserName = saveStateName.text;
 					SceneManager.LoadScene("GameScene");
 				}));
 				break;
@@ -101,7 +102,7 @@ public class MainMenu : MonoBehaviour {
 		}
 	}
 
-	public void LoadGame_Btn(int b)
+	/*public void LoadGame_Btn(int b)
 	{
 		switch(b)
 		{
@@ -123,7 +124,7 @@ public class MainMenu : MonoBehaviour {
 				}));
 				break;
 		}
-	}
+	}*/
 
 	IEnumerator IsDone(Animator animator, string animationName, Action a)
 	{

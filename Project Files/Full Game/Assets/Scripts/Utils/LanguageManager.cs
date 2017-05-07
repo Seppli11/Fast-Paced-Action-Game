@@ -59,7 +59,6 @@ public class LanguageManager : MonoBehaviour
 		using(var fs = File.OpenRead(Application.dataPath+ "/langFiles/" + Language.English.filePath))
 		using (var reader = new StreamReader(fs))
 		{
-			var sceneName = "";
 			while (!reader.EndOfStream)
 			{
 				var line = reader.ReadLine().Trim();

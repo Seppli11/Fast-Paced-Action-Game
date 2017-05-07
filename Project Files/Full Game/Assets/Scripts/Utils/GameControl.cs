@@ -186,12 +186,11 @@ public class GameControl : MonoBehaviour {
 	{
 		if (item == null) return null;
 		if (item.itemType == null) return null;
-		InventoryMenu inventory = InventoryMenu.inventoryMenu;
 		Item rItem = null;
 		switch(item.itemType.generalItemType)
 		{
 			case GeneralItemType.Weapon:
-				rItem = WeaponFactory.weaponFactory.GetWeapon(item as WeaponData, Player.player);
+				//rItem = WeaponFactory.weaponFactory.GetWeapon(item as WeaponData, Player.player);
 				break;
 			default:
 				Debug.LogError("GeneralItemType '" + item.itemType.generalItemType + "' isn't supported!");

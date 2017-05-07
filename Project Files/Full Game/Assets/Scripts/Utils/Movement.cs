@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour {
 	}
 	
 	public Vector2 velocity;
+	public float multiplier = 1;
 
 	private Vector2 _lastDirection;
 	public Vector2 lastDirection
@@ -32,33 +33,38 @@ public class Movement : MonoBehaviour {
 		get { return _lastDirection; }
 	}
 
+	public bool lockMovement = false;
 
-	private Rigidbody2D rigidbody;
+	//public BoxCollider2D colider;
+	private Rigidbody2D rigidbody2d;
 	private Animator animator;
 	// Use this for initialization
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();
+		rigidbody2d = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(rigidbody.velocity != Vector2.zero)
+		//sets the walk bool
+		if (lockMovement) return;
+		if(rigidbody2d.velocity != Vector2.zero)
 		{
-			_lastDirection = rigidbody.velocity.normalized;
+			_lastDirection = velocity.normalized;
 			if(animator.GetBool(animatorWalkingBool) == false)
 				animator.SetBool(animatorWalkingBool, true);
 		} else
 		{
 			if (animator.GetBool(animatorWalkingBool) == true)
 				animator.SetBool(animatorWalkingBool, false);
-			
 		}
-		
-		rigidbody.velocity = velocity;
-		animator.SetFloat(animatorWalkingX, lastDirection.x);
-		animator.SetFloat(animatorWalkingY, lastDirection.y);
-	}
 
-	
+		//sets the x and y var of the animator
+		/*if(GetComponent<Player>() == null)
+			Debug.Log("LastDirection: " + lastDirection + ", rotation: " + _rotation);*/
+		velocity *= multiplier;
+		rigidbody2d.velocity = velocity;
+		animator.SetFloat(animatorWalkingX, rotation.x);
+		animator.SetFloat(animatorWalkingY, rotation.y);
+	}
 }

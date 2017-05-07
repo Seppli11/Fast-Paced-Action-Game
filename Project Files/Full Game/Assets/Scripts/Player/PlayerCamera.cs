@@ -5,20 +5,20 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     private Vector3 offset;
-    private Camera camera;
+    private Camera playerCamera;
     public Transform playersTransform;
 
 	public bool enable
 	{
 		set {
-			camera.enabled = value;
+			playerCamera.enabled = value;
 		}
-		get { return camera.enabled; }
+		get { return playerCamera.enabled; }
 	}
 
 	void Start ()
 	{
-	    camera = GetComponent<Camera>();
+	    playerCamera = GetComponent<Camera>();
 	    //offset = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
 	    offset = new Vector3(0, 0, -10);
 	}

@@ -18,8 +18,6 @@ public class InventoryMenu : MonoBehaviour {
 
 	public GameObject invisibleItems;
 
-	private float timeScaleToResetTo = 1f;
-
 	public Transform parentOfInventoryCells;
 	public InventoryCell weapon1Cell, weapon2Cell;
 	public WeaponPanel weaponPanel1, weaponPanel2;
@@ -78,10 +76,12 @@ public class InventoryMenu : MonoBehaviour {
 	{
 		inventoryMenu = this;
 		sItemImagePrefab = itemImagePrefab;
+		
 	}
 
 	// Use this for initialization
 	void Start () {
+		weapon1 = WeaponFactory.weaponFactory.GetSword(Player.player, 6, 1);
 	}
 	
 	// Update is called once per frame
